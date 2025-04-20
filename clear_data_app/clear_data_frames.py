@@ -2,7 +2,7 @@ import os
 
 import numpy as np
 import pandas as pd
-
+import os
 
 class ClearDataFrames:
     def __init__(self):
@@ -15,57 +15,48 @@ class ClearDataFrames:
         self.product_category_name_translation = None
         self.products = None
         self.sellers = None
+        self.cur_dir = os.path.dirname(__file__)
 
     def load_data(self):
-        self.customers = pd.read_csv('./data/customers.csv') if os.path.exists('./data/customers.csv') \
-            else pd.read_csv('data/customers.csv')
-        self.geolocation = pd.read_csv('./data/geolocation.csv') if os.path.exists('./data/geolocation.csv') \
-            else pd.read_csv('data/geolocation.csv')
-        self.order_payments = pd.read_csv('./data/order_payments.csv') if os.path.exists('./data/order_payments.csv') \
-            else pd.read_csv('data/order_payments.csv')
-        self.order_reviews = pd.read_csv('./data/order_reviews.csv') if os.path.exists('./data/order_reviews.csv') \
-            else pd.read_csv('data/order_reviews.csv')
-        self.orders = pd.read_csv('./data/orders.csv') if os.path.exists('./data/orders.csv') \
-            else pd.read_csv('data/orders.csv')
-        self.orders_items = pd.read_csv('./data/orders_items.csv') if os.path.exists('./data/orders_items.csv') \
-            else pd.read_csv('data/orders_items.csv')
-        self.product_category_name_translation = pd.read_csv('./data/product_category_name_translation.csv') \
-            if os.path.exists('./data/product_category_name_translation.csv') \
-            else pd.read_csv('data/product_category_name_translation.csv')
-        self.products = pd.read_csv('./data/products.csv') if os.path.exists('./data/products.csv') \
-            else pd.read_csv('data/products.csv')
-        self.sellers = pd.read_csv('./data/sellers.csv') if os.path.exists('./data/sellers.csv') \
-            else pd.read_csv('data/sellers.csv')
+        self.customers = pd.read_csv(f'{self.cur_dir}/data/customers.csv')
+        self.geolocation = pd.read_csv(f'{self.cur_dir}/data/geolocation.csv')
+        self.order_payments = pd.read_csv(f'{self.cur_dir}/data/order_payments.csv')
+        self.order_reviews = pd.read_csv(f'{self.cur_dir}/data/order_reviews.csv')
+        self.orders = pd.read_csv(f'{self.cur_dir}/data/orders.csv')
+        self.orders_items = pd.read_csv(f'{self.cur_dir}/data/orders_items.csv')
+        self.product_category_name_translation = pd.read_csv(f'{self.cur_dir}/data/product_category_name_translation.csv')
+        self.products = pd.read_csv(f'{self.cur_dir}/data/products.csv')
+        self.sellers = pd.read_csv(f'{self.cur_dir}/data/sellers.csv')
 
     def load_clear_data(self):
-        self.customers = pd.read_csv('../cohort_analysis/clear_data/customers.csv') if os.path.exists(
-            '../cohort_analysis/clear_data/customers.csv') \
-            else pd.read_csv('./data/customers.csv')
-        self.geolocation = pd.read_csv('../cohort_analysis/clear_data/geolocation.csv') if os.path.exists(
-            '../cohort_analysis/clear_data/geolocation.csv') \
-            else pd.read_csv('./data/geolocation.csv')
-        self.order_payments = pd.read_csv('../cohort_analysis/clear_data/order_payments.csv') if os.path.exists(
-            '../cohort_analysis/clear_data/order_payments.csv') \
-            else pd.read_csv('./data/order_payments.csv')
-        self.order_reviews = pd.read_csv('../cohort_analysis/clear_data/order_reviews.csv') if os.path.exists(
-            '../cohort_analysis/clear_data/order_reviews.csv') \
-            else pd.read_csv('./data/order_reviews.csv')
-        self.orders = pd.read_csv('../cohort_analysis/clear_data/orders.csv') if os.path.exists(
-            '../cohort_analysis/clear_data/orders.csv') \
-            else pd.read_csv('./data/orders.csv')
-        self.orders_items = pd.read_csv('../cohort_analysis/clear_data/orders_items.csv') if os.path.exists(
-            '../cohort_analysis/clear_data/orders_items.csv') \
-            else pd.read_csv('data/orders_items.csv')
+        self.customers = pd.read_csv(f'{self.cur_dir}/clear_data/customers.csv') if os.path.exists(
+            f'{self.cur_dir}/clear_data/customers.csv') \
+            else pd.read_csv(f'{self.cur_dir}/data/customers.csv')
+        self.geolocation = pd.read_csv(f'{self.cur_dir}/clear_data/geolocation.csv') if os.path.exists(
+            f'{self.cur_dir}/clear_data/geolocation.csv') \
+            else pd.read_csv(f'{self.cur_dir}/data/geolocation.csv')
+        self.order_payments = pd.read_csv(f'{self.cur_dir}/clear_data/order_payments.csv') if os.path.exists(
+            f'{self.cur_dir}/clear_data/order_payments.csv') \
+            else pd.read_csv(f'{self.cur_dir}/data/order_payments.csv')
+        self.order_reviews = pd.read_csv(f'{self.cur_dir}/clear_data/order_reviews.csv') if os.path.exists(
+            f'{self.cur_dir}/clear_data/order_reviews.csv') \
+            else pd.read_csv(f'{self.cur_dir}/data/order_reviews.csv')
+        self.orders = pd.read_csv(f'{self.cur_dir}/clear_data/orders.csv') if os.path.exists(
+            f'{self.cur_dir}/clear_data/orders.csv') \
+            else pd.read_csv(f'{self.cur_dir}/data/orders.csv')
+        self.orders_items = pd.read_csv(f'{self.cur_dir}/clear_data/orders_items.csv') if os.path.exists(
+            f'{self.cur_dir}/clear_data/orders_items.csv') \
+            else pd.read_csv(f'{self.cur_dir}/data/orders_items.csv')
         self.product_category_name_translation = pd.read_csv(
-            '../cohort_analysis/clear_data/product_category_name_translation.csv') \
-            if os.path.exists('../cohort_analysis/clear_data/product_category_name_translation.csv') \
-            else pd.read_csv('data/product_category_name_translation.csv')
-        self.products = pd.read_csv('../cohort_analysis/clear_data/products.csv') if os.path.exists(
-            '../cohort_analysis/clear_data/products.csv') \
-            else pd.read_csv('data/products.csv')
-        self.sellers = pd.read_csv('../cohort_analysis/clear_data/sellers.csv') if os.path.exists(
-            '../cohort_analysis/clear_data/sellers.csv') \
-            else pd.read_csv('data/sellers.csv')
+            f'{self.cur_dir}/clear_data/product_category_name_translation.csv') \
+            if os.path.exists(f'{self.cur_dir}/clear_data/product_category_name_translation.csv') \
+            else pd.read_csv(f'{self.cur_dir}/data/product_category_name_translation.csv')
+        self.products = pd.read_csv(f'{self.cur_dir}/clear_data/products.csv') if os.path.exists(
+            f'{self.cur_dir}/clear_data/products.csv') \
+            else pd.read_csv(f'{self.cur_dir}/data/products.csv')
+        self.sellers = pd.read_csv(f'{self.cur_dir}/clear_data/sellers.csv') if os.path.exists(
+            f'{self.cur_dir}/clear_data/sellers.csv') \
+            else pd.read_csv(f'{self.cur_dir}/data/sellers.csv')
 
     def clear_data(self):
         self.__clear_customers()

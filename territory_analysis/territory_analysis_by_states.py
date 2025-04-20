@@ -2,21 +2,22 @@ from dash import Dash, html, dcc
 import plotly.graph_objects as go
 import json
 import pandas as pd
-import tqdm
-from datetime import datetime, timedelta
+import os
 
+current_dir = os.path.dirname(__file__)
+base_path = os.path.join(os.path.dirname(current_dir), "clear_data_app/clear_data")
 
-products = pd.read_csv("../cohort_analysis/clear_data/products.csv")
-orders = pd.read_csv("../cohort_analysis/clear_data/orders.csv")
-customers = pd.read_csv("../cohort_analysis/clear_data/customers.csv")
-geolocation = pd.read_csv("../cohort_analysis/clear_data/geolocation.csv")
-order_payments = pd.read_csv("../cohort_analysis/clear_data/order_payments.csv")
-order_reviews = pd.read_csv("../cohort_analysis/clear_data/order_reviews.csv")
-orders_items = pd.read_csv("../cohort_analysis/clear_data/orders_items.csv")
-sellers = pd.read_csv("../cohort_analysis/clear_data/sellers.csv")
-product_category_name_translation = pd.read_csv("../cohort_analysis/clear_data/product_category_name_translation.csv")
+products = pd.read_csv(f"{base_path}/products.csv")
+orders = pd.read_csv(f"{base_path}/orders.csv")
+customers = pd.read_csv(f"{base_path}/customers.csv")
+geolocation = pd.read_csv(f"{base_path}/geolocation.csv")
+order_payments = pd.read_csv(f"{base_path}/order_payments.csv")
+order_reviews = pd.read_csv(f"{base_path}/order_reviews.csv")
+orders_items = pd.read_csv(f"{base_path}/orders_items.csv")
+sellers = pd.read_csv(f"{base_path}/sellers.csv")
+product_category_name_translation = pd.read_csv(f"{base_path}/product_category_name_translation.csv")
 
-rfm_analysis = pd.read_csv("../rfm_analysis/rfm_data/rfm_analysis.csv")
+rfm_analysis = pd.read_csv(f"{current_dir}/../rfm_analysis/rfm_data/rfm_analysis.csv")
 data = rfm_analysis[["customer_unique_id", "recency_days"]].merge(customers, on="customer_unique_id")[["customer_unique_id", "recency_days", "customer_state"]].drop_duplicates()
 
 states_names = ['RJ', 'SP', 'MG', 'PE', 'PR', 'SC', 'GO', 'RR', 'MT', 'RS', 'PI',
@@ -31,10 +32,10 @@ min_pers = min([el[1]["fired"]/el[1]["overall"] for el in states_values.items()]
 max_pers = max([el[1]["fired"]/el[1]["overall"] for el in states_values.items()])
 delta = max_pers - min_pers
 
-with open('territory_data/brazil_geo.json', 'r', encoding='utf-8') as file:
+with open(f'{current_dir}/territory_data/brazil_geo.json', 'r', encoding='utf-8') as file:
     data = json.load(file)
 
-app = Dash(__name__)
+# app = Dash(__name__)
 fig = go.Figure()
 
 for feature in data["features"]:
@@ -118,14 +119,15 @@ fig.update_layout(
     height=600
 )
 
-app.layout = html.Div([
-    html.H1("Полигон с интерактивной точкой", style={'textAlign': 'center'}),
-    dcc.Graph(
-        id='map',
-        figure=fig,
-        config={'scrollZoom': True}
-    )
-])
+def get_app_layout():
+    return html.Div([
+        html.H1("Анализ геолокации по штатам", style={'textAlign': 'center'}),
+        dcc.Graph(
+            id='map',
+            figure=fig,
+            config={'scrollZoom': True}
+        )
+    ])
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+#     app.run(debug=True)
