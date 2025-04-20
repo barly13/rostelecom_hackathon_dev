@@ -1,7 +1,11 @@
+-- select
+-- 	max(date(order_purchase_timestamp))
+-- from
+-- 	orders
 with recursive periods as (
     select 
         date_trunc('month', min(date(order_purchase_timestamp))) start_month,
-        date_trunc('month', min(date(order_purchase_timestamp))) + interval '3 months' - interval '1 day' end_month
+        date_trunc('month', min(date(order_purchase_timestamp))) + interval '1 months' - interval '1 day' end_month
     from 
 		orders
     
@@ -9,7 +13,7 @@ with recursive periods as (
     
     select
         p.end_month + interval '1 day',
-        p.end_month + interval '3 months'
+        p.end_month + interval '1 months'
     from 
 		periods p
     where 
@@ -40,7 +44,7 @@ period_stats as (
         -- Новые пользователи в периоде
         count(distinct case when cfl.first_order_date between p.start_month and p.end_month then cfl.customer_unique_id end) new_customers,
         -- Ушедшие пользователи (последний заказ был более 3 месяцев назад до конца периода)
-        count(distinct case when cfl.last_order_date < p.end_month - interval '3 months' 
+        count(distinct case when cfl.last_order_date < p.end_month - interval '1 months' 
                             and cfl.first_order_date < p.start_month then cfl.customer_unique_id end) departed_customers
     from 
 		periods p
@@ -51,13 +55,13 @@ period_stats as (
 )
 
 select
-    to_char(start_month, 'yyyy-MM') || ' to ' || to_char(end_month, 'YYYY-MM') as period,
+    to_char((select min(date(order_purchase_timestamp)) from orders), 'yyyy-MM') || ' to ' || to_char(end_month, 'yyyy-MM') as period,
     starting_customers,
     new_customers,
     departed_customers,
     starting_customers + new_customers - departed_customers ending_customers,
     case when starting_customers > 0 
-         then round((starting_customers - departed_customers) * 100.0 / starting_customers, 1)
+         then round(((starting_customers - departed_customers) * 100.0 / starting_customers), 1)
          else null 
     end retention_rate
 from 
