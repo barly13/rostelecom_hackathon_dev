@@ -1,0 +1,97 @@
+{
+    "health_beauty": [
+        "health_beauty",
+        "perfumery",
+        "diapers_and_hygiene"
+    ],
+    "electronics_technology": [
+        "computers_accessories",
+        "telephony",
+        "tablets_printing_image",
+        "fixed_telephony",
+        "consoles_games",
+        "audio",
+        "electronics",
+        "small_appliances",
+        "home_appliances",
+        "home_appliances_2",
+        "small_appliances_home_oven_and_coffee",
+        "cine_photo",
+        "cds_dvds_musicals",
+        "dvds_blu_ray",
+        "computers"
+    ],
+    "automotive": [
+        "auto"
+    ],
+    "home_furniture_decor": [
+        "bed_bath_table",
+        "furniture_decor",
+        "kitchen_dining_laundry_garden_furniture",
+        "furniture_mattress_and_upholstery",
+        "furniture_living_room",
+        "furniture_bedroom",
+        "office_furniture",
+        "home_confort",
+        "home_comfort_2",
+        "home_construction",
+        "la_cuisine",
+        "air_conditioning"
+    ],
+    "fashion_accessories": [
+        "fashion_bags_accessories",
+        "fashion_shoes",
+        "fashion_male_clothing",
+        "fashio_female_clothing",
+        "fashion_underwear_beach",
+        "fashion_sport",
+        "luggage_accessories",
+        "watches_gifts",
+        "sports_leisure"
+    ],
+    "construction_industry": [
+        "construction_tools_construction",
+        "costruction_tools_garden",
+        "costruction_tools_tools",
+        "construction_tools_lights",
+        "construction_tools_safety",
+        "industry_commerce_and_business",
+        "agro_industry_and_commerce",
+        "signaling_and_security",
+        "security_and_services"
+    ],
+    "food_drinks": [
+        "food_drink",
+        "drinks",
+        "food",
+        "party_supplies"
+    ],
+    "baby_kids": [
+        "baby",
+        "toys",
+        "fashion_childrens_clothes"
+    ],
+    "books": [
+        "books_technical",
+        "books_general_interest",
+        "books_imported"
+    ],
+    "art": [
+        "music",
+        "art",
+        "arts_and_craftmanship",
+        "stationery",
+        "musical_instruments"
+    ],
+    "home_lifestyle_misc": [
+        "garden_tools",
+        "flowers",
+        "cool_stuff",
+        "market_place",
+        "christmas_supplies",
+        "housewares"
+    ],
+    "pets": [
+        "pet_shop"
+    ]
+}
