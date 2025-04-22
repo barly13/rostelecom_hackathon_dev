@@ -5,6 +5,7 @@ from dash.exceptions import PreventUpdate
 from cohort_analysis.cohort_analysis import register_callbacks_ca
 from rfm_analysis.rfm_analysis_visual import register_callbacks_rfm
 from territory_analysis.territory_analysis import register_callbacks_ta
+from ml.dash.dash_ml import register_callbacks_ml
 
 app = dash.Dash(__name__, use_pages=True)
 
@@ -26,6 +27,7 @@ app.layout = html.Div([
 register_callbacks_ta(app)
 register_callbacks_rfm(app)
 register_callbacks_ca(app)
+register_callbacks_ml(app)
 
 @app.callback(
     [Output(f"nav-{page['name']}", "style") for page in dash.page_registry.values()],
