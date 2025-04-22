@@ -22,9 +22,7 @@ first_last_orders['months_diff'] = (first_last_orders['last_order_date'] - first
 max_diff_month = first_last_orders['months_diff'].max()
 unique_months = pd.concat([first_last_orders['first_order_date'], first_last_orders['last_order_date']]).drop_duplicates().reset_index(drop=True)
 lowest_month = unique_months.min()
-print(lowest_month)
 highest_month = unique_months.max()
-print((highest_month - lowest_month).n)
 all_months = []
 while lowest_month <= highest_month:
     all_months.append(lowest_month)
