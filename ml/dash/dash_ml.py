@@ -98,9 +98,8 @@ processed_df = pd.DataFrame()
 
 
 def process_data(df):
-    # return df
     processed_df = df.copy()
-    oom = OneOrderModel('../models/rfc.pkl', '../cluster_table.csv')
+    oom = OneOrderModel('../ml/models/rfc.pkl', '../ml/cluster_table.csv')
     return oom.predict(processed_df)
 
 
