@@ -3,11 +3,13 @@ from dash import dcc, html, dash_table, Input, Output, State
 import pandas as pd
 import io
 import base64
+from ml.one_order_model import OneOrderModel
+
 
 app = dash.Dash(__name__)
 
 app.layout = html.Div([
-    html.H1("Обработка CSV данных"),
+    html.H1("Предсказание вероятности следующей покупки"),
 
     # Поле для загрузки файла
     dcc.Upload(
@@ -52,7 +54,7 @@ app.layout = html.Div([
                 style_cell={
                     'height': 'auto',
                     'minWidth': '100px', 'width': '100px',
-                    'whiteSpace': 'normal'
+                    'whiteSpace': 'nowrap'
                 }
             ),
             html.Div([
@@ -90,13 +92,14 @@ app.layout = html.Div([
 current_original_page = 0
 current_result_page = 0
 stored_df = None
+processed_df = pd.DataFrame()
 
 
 def process_data(df):
+    # return df
     processed_df = df.copy()
-    processed_df['processed_1'] = processed_df.iloc[:, 0] * 2  # Пример: удваиваем значения первого столбца
-    processed_df['processed_2'] = processed_df.iloc[:, -1] / 2  # Пример: делим пополам значения последнего столбца
-    return processed_df
+    oom = OneOrderModel('../models/rfc.pkl', '../cluster_table.csv')
+    return oom.predict(processed_df)
 
 
 @app.callback(
@@ -116,7 +119,8 @@ def process_data(df):
      State('original-data-table', 'data')]
 )
 def update_output(contents, predict_clicks, orig_prev, orig_next, res_prev, res_next, filename, original_data):
-    global current_original_page, current_result_page, stored_df
+    global current_original_page, current_result_page, stored_df, processed_df
+
 
     ctx = dash.callback_context
     if not ctx.triggered:
@@ -133,6 +137,10 @@ def update_output(contents, predict_clicks, orig_prev, orig_next, res_prev, res_
             if 'csv' in filename:
                 # Читаем CSV файл
                 stored_df = pd.read_csv(io.StringIO(decoded.decode('utf-8')))
+                try:
+                    stored_df.drop(columns=['Unnamed: 0'], inplace=True)
+                except Exception:
+                    pass
                 current_original_page = 0
                 current_result_page = 0
             else:
@@ -151,7 +159,8 @@ def update_output(contents, predict_clicks, orig_prev, orig_next, res_prev, res_
     elif button_id in ['result-prev-page', 'result-next-page']:
         if button_id == 'result-prev-page' and current_result_page > 0:
             current_result_page -= 1
-        elif button_id == 'result-next-page':
+        elif button_id == 'result-next-page' and processed_df is not None and (current_result_page + 1) * 20 < len(
+                stored_df):
             current_result_page += 1
 
     # Если данных нет, возвращаем пустые результаты

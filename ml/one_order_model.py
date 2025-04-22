@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 from pathlib import Path
 from pickle import load
-from sklearn.ensemble import RandomForestClassifier
 
 class OneOrderModel:
   def __init__(self, model=None, labels=None):
