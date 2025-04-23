@@ -99,7 +99,10 @@ processed_df = pd.DataFrame()
 
 def process_data(df):
     processed_df = df.copy()
-    oom = OneOrderModel('../ml/models/rfc.pkl', '../ml/cluster_table.csv')
+    import os
+    base_path = os.path.dirname(__file__)
+
+    oom = OneOrderModel(f'{base_path}/../models/rfc.pkl', f'{base_path}/../cluster_table.csv')
     return oom.predict(processed_df)
 
 

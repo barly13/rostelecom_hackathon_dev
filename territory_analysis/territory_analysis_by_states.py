@@ -66,7 +66,7 @@ for feature in data["features"]:
                 color='red',
                 opacity=0.8
             ),
-            text=[f"{name}: {state_meta['fired']}/{state_meta['overall']} ({percentage*100:.1f}%)"],
+            text=[f"Штат {name}: пользователей ушло {state_meta['fired']}, всего было {state_meta['overall']} ({percentage * 100:.1f}%)"],
             hoverinfo='text',
             name="Точка",
             showlegend=False
@@ -100,7 +100,7 @@ for feature in data["features"]:
                     color='red',
                     opacity=0.8
                 ),
-                text=[f"{name}: {state_meta['fired']}/{state_meta['overall']} ({percentage*100:.1f}%)"],
+                text=[f"Штат {name}: пользователей ушло {state_meta['fired']}, всего было {state_meta['overall']} ({percentage*100:.1f}%)"],
                 hoverinfo='text',
                 name="Точка",
                 showlegend=False
